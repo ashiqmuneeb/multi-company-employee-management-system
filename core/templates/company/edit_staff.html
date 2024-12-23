@@ -1,0 +1,97 @@
+{% extends "company/base.html" %}
+{% load static %}
+
+{% block title %}Edit Employee{% endblock title %}
+
+{% block page_title %}Edit Employee{% endblock page_title %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Edit Employee Details</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <!-- Employee Form Fields -->
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" class="form-control" value="{{ employee.name }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" name="address" id="address" class="form-control" value="{{ employee.address }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone_number">Phone Number</label>
+                        <input type="text" name="phone_number" id="phone_number" class="form-control" value="{{ employee.phone_number }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <select name="department" id="department" class="form-control">
+                            {% for department in department_choices %}
+                                <option value="{{ department.id }}" {% if employee.department.id == department.id %}selected{% endif %}>{{ department.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role">Role</label>
+                        <select name="role" id="role" class="form-control">
+                            {% for role in role_choices %}
+                                <option value="{{ role.id }}" {% if employee.role.id == role.id %}selected{% endif %}>{{ role.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select name="status" id="status" class="form-control">
+                            {% for status in statuses %}
+                                <option value="{{ status.0 }}" {% if employee.status == status.0 %}selected{% endif %}>{{ status.1 }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="salary">Salary</label>
+                        <input type="number" name="salary" id="salary" class="form-control" value="{{ employee.salary }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="joining_date">Joining Date</label>
+                        <input type="date" name="joining_date" id="joining_date" class="form-control" value="{{ employee.joining_date }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Company</label>
+                        <select name="company" id="company" class="form-control">
+                            {% for company in companies %}
+                                <option value="{{ company.id }}" {% if employee.company.id == company.id %}selected{% endif %}>{{ company.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="file" name="image" id="image" class="form-control">
+                        {% if employee.image %}
+                            <img src="{{ employee.image.url }}" width="150" height="150" alt="Employee Image" class="mt-2">
+                        {% else %}
+                            <img src="{% static 'assets/img/default-avatar.png' %}" width="150" height="150" alt="No Image" class="mt-2">
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

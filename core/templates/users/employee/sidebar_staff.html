@@ -1,0 +1,37 @@
+
+
+
+<li class="menu-header">Attendance Management</li> 
+<li>
+    <a href="{% url 'view_attendance' company_id=company.id %}" class="nav-link">
+        <i class="fas fa-user"></i><span>Attendance</span>
+    </a>
+</li> 
+
+<li class="menu-header">Leave Management</li> 
+<li>
+    <a href="{% url 'submit_leave_request' company_id=company.id %}" class="nav-link">
+        <i class="fas fa-plane-departure"></i><span>Leave Management</span>
+    </a>
+</li>
+
+<li class="menu-header">Task Management</li> 
+<li>
+    <a href="{% url 'view_tasks' company_id=company.id %}" class="nav-link">
+        <i class="fas fa-envelope"></i><span>Tasks</span>
+    </a>
+</li> 
+
+<li class="menu-header"> Announcements</li> 
+<li>
+    <a href="{% url 'view_announcements' company_id=company.id %}" class="nav-link">
+        <i class="fas fa-bullhorn"></i><span>Announcements</span>
+    </a>
+</li> 
+
+<div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+    <a href="{% url 'user_logout' %}" class="btn btn-primary btn-lg btn-block btn-icon-split">
+        <i class="fas fa-sign-out-alt"></i>
+        <span class="ml-2">Logout</span>
+    </a>
+

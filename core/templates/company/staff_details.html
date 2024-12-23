@@ -1,0 +1,42 @@
+{% extends "company/base.html" %}
+{% load static %}
+
+{% block title %}Employee Details{% endblock title %}
+
+{% block page_title %}Employee Details{% endblock page_title %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Employee Details</h4>
+            </div>
+            <div class="card-body d-flex justify-content-between">
+                <div>
+                    <h5>Employee ID: {{ employee.employee_id }}</h5>
+                    <h5>Name: {{ employee.name }}</h5>
+                    <h5>Company: {{ employee.company }}</h5>
+                    <h5>Role: {{ employee.role }}</h5>
+                    <h5>Department: {{ employee.department }}</h5>
+                    <h5>Status: {{ employee.status }}</h5>
+                    <h5>Address: {{ employee.address }}</h5>
+                    <h5>Salary: {{ employee.salary }}</h5>
+                    <h5>Contact Info: {{ employee.phone_number }}</h5>
+                </div>
+
+                <div class="text-center">
+                    {% if employee.image %}
+                        <img src="{{ employee.image.url }}" width="150" height="150" alt="Employee Image">
+                    {% else %}
+                        <img src="{% static 'assets/img/default-avatar.png' %}" width="150" height="150" alt="No Image">
+                    {% endif %}
+                    <!-- Edit Link -->
+                    <br>
+                    <a href="{% url 'edit_staff' employee.id %}" class="btn btn-primary mt-2">Edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

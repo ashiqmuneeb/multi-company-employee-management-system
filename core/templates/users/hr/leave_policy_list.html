@@ -1,0 +1,36 @@
+{% extends "users/base.html" %}
+
+{% block title %}
+Leave Policies
+{% endblock title %}
+
+{% block page_content %}
+<div class="container">
+    <h2>Leave Policies</h2>
+    <a href="{% url 'create_leave_policy' company_id=company.id %}" class="btn btn-success mb-3">Add Leave Policy</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Leave Type</th>
+                <th>Max Days/Year</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for policy in policies %}
+            <tr>
+                <td>{{ policy.leave_type }}</td>
+                <td>{{ policy.max_days_per_year }}</td>
+                <td>
+                    <a href="{% url 'delete_leave_policy' policy_id=policy.id company_id=company.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No policies found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock page_content %}

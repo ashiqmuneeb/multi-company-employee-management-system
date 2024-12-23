@@ -1,0 +1,6 @@
+<form method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete the department "{{ department.name }}"?</p>
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'department_management' company.id %}">Cancel</a>
+</form>

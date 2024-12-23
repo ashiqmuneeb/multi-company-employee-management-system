@@ -1,0 +1,41 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block title %}
+Leave Requests
+{% endblock title %}
+
+{% block page_title %}
+{% include "users/employee/_page_title.html" %}
+{% endblock page_title %}
+
+{% block page_content %}
+<h1 style="text-align: center; font-family: Arial, sans-serif; color: #4CAF50;">Your Leave Requests</h1>
+<div style="width: 90%; margin: auto; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); background-color: #f9f9f9; border-radius: 8px;">
+    <table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;">
+        <thead>
+            <tr style="background-color: #4CAF50; color: white; text-align: left;">
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">Type</th>
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">Start Date</th>
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">End Date</th>
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">Status</th>
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for leave in leave_requests %}
+            <tr style="background-color: {% cycle '#ffffff' '#f2f2f2' %};">
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ leave.leave_type.leave_type }}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ leave.start_date }}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ leave.end_date }}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ leave.status }}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                    {% if leave.status == "Pending" %}
+                    <a href="{% url 'update_leave_request' company_id=company.id pk=leave.id %}" style="color: #4CAF50; text-decoration: none;">Edit</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock page_content %}

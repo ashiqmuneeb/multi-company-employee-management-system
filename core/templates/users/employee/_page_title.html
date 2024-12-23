@@ -1,0 +1,56 @@
+
+{% block custom_css %}
+<style>
+    /* Page title links styling */
+    .page-title-links {
+        text-align: center;
+        margin-bottom: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .page-title-links a {
+        margin: 0 15px;
+        color: #007bff;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 5px;
+    }
+
+    .page-title-links a:hover::after,
+    .page-title-links a.active::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background-color: #007bff;
+        transition: width 0.3s ease;
+        width: 100%;
+    }
+
+    .page-title-links a::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background-color:rgb(43, 84, 128);
+        width: 0;
+        transition: width 0.3s ease;
+    }
+
+    .page-title-links a:hover::after {
+        width: 100%;
+    }
+</style>
+{% endblock custom_css %}
+<div class="page-title-links">
+    <a href="{% url 'submit_leave_request' company_id=company.id %}" >Apply</a>
+    <a href="{% url 'view_leave_requests' company_id=company.id %}">Requests</a>
+    <a href="{% url 'view_leave_balances' company_id=company.id %}">Balances</a>
+    <a href="{% url 'view_leave_policy_per_company' company_id=company.id %}">Policies</a>
+</div>

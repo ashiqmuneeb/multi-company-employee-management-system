@@ -1,0 +1,74 @@
+{% extends "users/base.html" %}
+{% block title %}
+Add Leave Policy
+{% endblock title %}
+
+{% block page_content %}
+<div class="container">
+    <h2>{{ policy.id|default:"Create" }} Leave Policy</h2>
+    <form method="post" class="leave-policy-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="{% url 'list_leave_policies' company_id=company.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+<!-- Add inline CSS -->
+<style>
+    /* Custom styles for the leave policy form */
+    .leave-policy-form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    .leave-policy-form .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .leave-policy-form button {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .leave-policy-form a {
+        margin-top: 10px;
+        display: block;
+        text-align: center;
+        padding: 8px 16px;
+    }
+
+    /* Additional styles for better form layout */
+    .leave-policy-form input, .leave-policy-form select, .leave-policy-form textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .leave-policy-form button:disabled {
+        background-color: #ddd;
+        cursor: not-allowed;
+    }
+
+    /* Adjust button styles */
+    .leave-policy-form .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .leave-policy-form .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+</style>
+
+{% endblock page_content %}

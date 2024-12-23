@@ -1,0 +1,45 @@
+{% extends "users/base.html" %}
+{% load static %}
+{% block title %}Employees in {{ department.name }} Department{% endblock title %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4>Employees in {{ department.name }} Department</h4>
+            </div>
+            <div class="card-body">
+                <!-- Employee Cards -->
+                {% if employees %}
+                    <div class="row">
+                        {% for employee in employees %}
+                            <div class="col-md-6 mb-4">
+                                <div class="card shadow-sm">
+                                    <div class="card-body d-flex justify-content-between">
+                                        <div>
+                                            <h5>Name: {{ employee.name }}</h5>
+                                            <h5>Role: {{ employee.role.name }}</h5>
+                                            <h5>Phone: {{ employee.phone_number }}</h5>
+                                            <h5>Email: {{ employee.email }}</h5>
+                                        </div>
+                                        <div class="text-center">
+                                            {% if employee.image %}
+                                                <img src="{{ employee.image.url }}" width="150" height="150" alt="Employee Image">
+                                            {% else %}
+                                                <img src="{% static 'assets/img/default-avatar.png' %}" width="150" height="150" alt="No Image">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-center">No employees found in this department.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock page_content %}

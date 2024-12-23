@@ -1,0 +1,69 @@
+{% extends "company/base.html" %}
+
+{% block title %}Add Role{% endblock title %}
+
+{% block page_title %}Add Role{% endblock page_title %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-12">
+
+        <div class="card">
+            <div class="card-header">
+                <h4>Add Role</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_company">Company</label>
+                        {{ form.company }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_department">Department</label>
+                        {{ form.department }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_name">Role Name</label>
+                        {{ form.name }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Role</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#id_company').change(function() {
+            const companyId = $(this).val();
+            const departmentSelect = $('#id_department');
+
+            // Clear existing options
+            departmentSelect.empty();
+            departmentSelect.append('<option value="">Select a department</option>');
+
+            if (companyId) {
+                $.ajax({
+                    url: "{% url 'get_departments' %}",
+                    data: {
+                        'company_id': companyId
+                    },
+                    success: function(data) {
+                        data.forEach(function(department) {
+                            departmentSelect.append(
+                                `<option value="${department.id}">${department.name}</option>`
+                            );
+                        });
+                    },
+                    error: function() {
+                        alert('Error fetching departments. Please try again.');
+                    }
+                });
+            }
+        });
+    });
+</script>
+{% endblock page_content %}

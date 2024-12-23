@@ -1,0 +1,33 @@
+{% extends "company/base.html" %}
+
+{% block title %}Add Department{% endblock title %}
+
+{% block page_title %}Add Department{% endblock page_title %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-12">
+        {% if messages %}
+            <div class="alert alert-info">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="card">
+            <div class="card-header">
+                <h4>Add Department</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <!-- Render the form fields -->
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Add Department</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock page_content %}

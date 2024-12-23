@@ -1,0 +1,39 @@
+{% extends 'users/base.html' %}
+
+{% block title %}
+Tasks
+{% endblock title %}
+
+{% block page_content %}
+<h1 style="text-align: center; font-family: Arial, sans-serif; margin-bottom: 20px;">My Tasks</h1>
+<div style="overflow-x: auto; margin: 20px auto; max-width: 90%; border: 1px solid #ccc; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;">
+        <thead style="background-color: #f4f4f4;">
+            <tr>
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">Task Name</th>
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">Description</th>
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">Deadline</th>
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">Status</th>
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr style="background-color: {% cycle '#fff' '#f9f9f9' %};">
+                <td style="padding: 10px; border-bottom: 1px solid #ddd; text-align: center;">{{ task.task_name }}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd; text-align: center;">{{ task.description }}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd; text-align: center;">{{ task.deadline }}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd; text-align: center;">{{ task.status }}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd; text-align: center;">
+                    <a href="{% url 'update_task_status' company_id=company.id task_id=task.id %}" style="color: #007bff; text-decoration: none;">Update Status</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="padding: 20px; text-align: center; color: #999;">No tasks available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock page_content %}

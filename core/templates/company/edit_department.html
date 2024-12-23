@@ -1,0 +1,13 @@
+{% extends "company/base.html" %}
+
+{% block title %}Edit Department{% endblock title %}
+
+{% block page_content %}
+<h4>Edit Department: {{ department.name }}</h4>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+{% endblock page_content %}

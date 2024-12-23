@@ -1,0 +1,13 @@
+{% extends "company/base.html" %}
+
+{% block title %}Delete Department{% endblock title %}
+
+{% block page_content %}
+<h4>Are you sure you want to delete the department: {{ department.name }}?</h4>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a href="{% url 'department_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock page_content %}

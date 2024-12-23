@@ -1,0 +1,104 @@
+{% load static %}
+
+<div class="main-sidebar sidebar-style-2">
+    <aside id="sidebar-wrapper">
+        
+        <!-- Profile Section -->
+        <div class="sidebar-profile text-center p-3">
+            <img src="{% static 'img/avatar-1.png' %}" alt="image" class="rounded-circle mb-2" style="width: 60px;">
+            <div class="text-black">Hi, {{ request.user.username }}</div>
+
+            <hr class="my-2">
+        </div>
+
+        <ul class="sidebar-menu">
+            <!-- Dashboard Link -->
+            <li class="menu-header">Dashboard</li>
+            <li class="{% if request.path == dashboard %} active {% endif %}">
+        <a href="{% url 'dashboard'%}" class="nav-link">
+        <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
+        </a>
+            </li>
+
+            <!-- Company Management -->
+            <li class="dropdown {% if request.path == list_company %} active {% endif %}">
+                <a href="#" class="nav-link has-dropdown">
+                    <i class="fas fa-building"></i><span>Company Management</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="{% if request.path == list_company %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'list_company' %}">All Companies</a>
+                    </li>
+                    <li class="{% if request.path == create_company %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'create_company' %}">Add Company</a>
+                    </li>
+                    <li class="{% if request.path == update_company_list %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'update_company_list' %}">Update/Delete Company</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Department Management -->
+            <li class="dropdown {% if request.path == '/add-department/' or request.path == '/departments/' %} active {% endif %}">
+                <a href="#" class="nav-link has-dropdown">
+                    <i class="fas fa-sitemap"></i><span>Department Management</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="{% if request.path == add_department %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'add_department' %}">Add Department</a>
+                    </li>
+                    <li class="{% if request.path == department_list %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'department_list' %}">View Departments</a>
+                    </li>
+                    <li class="{% if request.path == edit_delete_department %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'edit_delete_department' %}">Edit/Delete Department</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Role Management -->
+            <li class="dropdown {% if request.path == '/add-role/' or request.path == '/role-list/' or request.path == '/edit-delete-role/' %} active {% endif %}">
+                <a href="#" class="nav-link has-dropdown">
+                    <i class="fas fa-user-tag"></i><span>Role Management</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="{% if request.path == add_role %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'add_role' %}">Add Role</a>
+                    </li>
+                    <li class="{% if request.path == role_list %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'role_list' %}">View Roles</a>
+                    </li>
+                    <li class="{% if request.path == edit_delete_role %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'edit_delete_role' %}">Edit/Delete Role</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Staff Management -->
+            <li class="dropdown {% if request.path == '/add-staff/' or request.path == '/view-staff/' or request.path == '/update-staff/' or request.path == '/delete-staff/' %} active {% endif %}">
+                <a href="#" class="nav-link has-dropdown">
+                    <i class="fas fa-users"></i><span>Staff Management</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="{% if request.path == add_staff %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'add_staff' %}">Add Staff</a>
+                    </li>
+                    <li class="{% if request.path == view_staff %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'view_staff' %}">View Staff</a>
+                    </li>
+                    <li class="{% if request.path == delete_staff %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'delete_staff' %}">Delete Staff</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        
+        <!-- Logout Button -->
+        <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+            <a href="{% url 'logout_company' %}" class="btn btn-primary btn-lg btn-block btn-icon-split">
+                <i class="fas fa-rocket"></i>
+                <span class="ml-2">LOGOUT</span>
+            </a>
+        </div>
+    </aside>
+</div>

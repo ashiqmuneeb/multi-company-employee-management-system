@@ -1,0 +1,51 @@
+{% extends "company/base.html" %}
+
+{% block title %}Company Create{% endblock title %}
+
+{% block page_title %}Create a New Company{% endblock page_title %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Create Company</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        {% if field.name != 'staff_members' and field.name != 'admin_username' and field.name != 'admin_password' %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" 
+                                   class="form-control" 
+                                   value="{% if field.name == 'company_code_for_employee_id' %}{{ company_code|default:'' }}{% else %}{{ field.value|default:'' }}{% endif %}" 
+                                   {% if field.name == 'company_code_for_employee_id' %}readonly{% endif %}>
+                            {% if field.errors %}
+                                <div class="alert alert-danger mt-2">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- Admin Username Field -->
+                    <div class="form-group">
+                        <label for="admin_username">Admin Username</label>
+                        <input type="text" name="admin_username" id="admin_username" class="form-control" required>
+                    </div>
+
+                    <!-- Admin Password Field -->
+                    <div class="form-group">
+                        <label for="admin_password">Admin Password</label>
+                        <input type="password" name="admin_password" id="admin_password" class="form-control" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Save Company</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock page_content %}

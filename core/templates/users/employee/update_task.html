@@ -1,0 +1,28 @@
+{% extends 'users/base.html' %}
+
+{% block title %}
+Update Task Status
+{% endblock title %}
+
+{% block page_content %}
+<h1 style="text-align: center; font-family: Arial, sans-serif; margin-bottom: 30px;">Update Task Status</h1>
+
+<div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom: 20px;">
+            <label for="status" style="font-size: 16px; font-weight: bold; color: #333;">Status:</label>
+            <select name="status" id="status" style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ddd; font-size: 14px; color: #555;">
+                {% for choice in task.STATUS_CHOICES %}
+                <option value="{{ choice.0 }}" {% if task.status == choice.0 %}selected{% endif %}>
+                    {{ choice.1 }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
+            Update
+        </button>
+    </form>
+</div>
+{% endblock page_content %}

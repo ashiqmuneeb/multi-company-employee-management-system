@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>
+    {% block title %}
+    {% endblock title %}
+  </title>
+
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="{% static '/static/modules/bootstrap/css/bootstrap.min.css'%} ">
+  <link rel="stylesheet" href="{% static '/static/modules/fontawesome/css/all.min.css'%} ">
+
+  <!-- CSS Libraries -->
+  <link rel="stylesheet" href="{% static '/static/modules/jqvmap/dist/jqvmap.min.css'%} ">
+  <link rel="stylesheet" href="{% static '/static/modules/weather-icon/css/weather-icons.min.css'%} ">
+  <link rel="stylesheet" href="{% static '/static/modules/weather-icon/css/weather-icons-wind.min.css'%} ">
+  <link rel="stylesheet" href="{% static '/static/modules/summernote/summernote-bs4.css' %} ">
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{% static '/static/css/style.css'%} ">
+  <link rel="stylesheet" href="{% static '/static/css/components.css'%} ">
+  
+  {% block custom_css %}
+  {% endblock custom_css %}
+</head>
+
+<style>
+  ul.errorlist{
+    margin:0px;
+  }
+</style>
+
+<body>
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+    {% include 'users/navbar.html' %}
+      {% include 'users/sidebar.html'%}
+
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-header">
+
+            <h1>{% block page_title %} {% endblock page_title %}</h1>
+          </div>  
+          {% if messages %}
+          {% for message in messages %}
+          {% if message.tags == "success" %}
+          <div class="alert alert-success">
+            {{ message }}
+          </div>
+          {% endif %}
+
+          {% if message.tags == "error" %}
+          <div class="alert alert-danger">
+            {{ message }}
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+        {% block page_content %}
+        {% endblock page_content %}
+      </div>
+      <footer class="main-footer">
+        <div class="footer-left">
+
+        </div>
+        <div class="footer-right">
+          
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- General JS Scripts -->
+  <script src="{% static '/static/modules/jquery.min.js'%} "></script>
+  <script src="{% static '/static/modules/popper.js'%} "></script>
+  <script src="{% static '/static/modules/tooltip.js'%} "></script>
+  <script src="{% static '/static/modules/bootstrap/js/bootstrap.min.js'%} "></script>
+  <script src="{% static '/static/modules/nicescroll/jquery.nicescroll.min.js'%} "></script>
+  <script src="{% static '/static/modules/moment.min.js'%} "></script>
+  <script src="{% static '/static/js/stisla.js'%} "></script>
+  
+  <!-- JS Libraies -->
+  <script src="{% static '/static/modules/simple-weather/jquery.simpleWeather.min.js'%} "></script>
+  <script src="{% static '/static/modules/chart.min.js'%} "></script>
+  <script src="{% static '/static/modules/jqvmap/dist/jquery.vmap.min.js'%} "></script>
+  <script src="{% static '/static/modules/jqvmap/dist/maps/jquery.vmap.world.js'%} "></script>
+  <script src="{% static '/static/modules/summernote/summernote-bs4.js'%} "></script>
+  <script src="{% static '/static/modules/chocolat/dist/js/jquery.chocolat.min.js'%} "></script>
+
+  <!-- Page Specific JS File -->
+  <script src="{% static '/static/js/page/index-0.js'%} "></script>
+  
+  <!-- Template JS File -->
+  <script src="{% static '/static/js/scripts.js'%} "></script>
+  <script src="{% static '/static/js/custom.js'%} "></script>
+
+  {% block custom_js %}
+  {% endblock custom_js %}
+
+  <script>
+    document.getElementById("title").onkeyup=function(){
+      document.getElementById("url_slug").value= document.getElementById("title").value.toLowerCase().replace(" ","-")
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{% extends 'users/base.html' %}
+
+{% block title %}
+Update Requests
+{% endblock title %}
+{% block page_title %}
+{% include "users/employee/_page_title.html" %}
+{% endblock page_title %}
+
+{% block page_content %}
+<h1 style="text-align: center; font-family: Arial, sans-serif; color: #4CAF50;">Update Leave Request</h1>
+<div style="width: 50%; margin: auto; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); background-color: #f9f9f9; border-radius: 8px;">
+    <form method="post" style="font-family: Arial, sans-serif;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div style="text-align: center;">
+            <button type="submit" style="
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                font-size: 16px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;">
+                Update
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock page_content %}

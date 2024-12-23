@@ -1,0 +1,130 @@
+{% extends 'users/base.html' %}
+
+{% block title %}
+User Profile
+{% endblock title %}
+
+{% block custom_css %}
+<style>
+  body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+  }
+
+  .profile-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .profile-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #333;
+  }
+
+  .profile-header p {
+    color: #666;
+    font-size: 1rem;
+  }
+
+  .profile-picture {
+    display: block;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 3px solid #007bff;
+  }
+
+  .form-group label {
+    font-weight: bold;
+    color: #555;
+  }
+
+  .form-control {
+    margin-bottom: 15px;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+</style>
+{% endblock custom_css %}
+
+{% block page_title %}
+User Profile
+{% endblock page_title %}
+
+{% block page_content %}
+<div class="profile-container">
+  <div class="profile-header">
+    {% if employee.image %}
+      <img src="{{ employee.image.url }}" alt="Profile Picture" class="profile-picture">
+    {% else %}
+      <img src="https://via.placeholder.com/120" alt="No Profile Picture" class="profile-picture">
+    {% endif %}
+
+    <!-- Display User's Name Based on Role -->
+    {% if employee %}
+      <h1>{{ employee.name }}</h1>
+      <p>{{ role_name }}</p>
+    {% else %}
+      <h1>{{ user.name }}</h1>
+      <p>{{ role_name }}</p>
+    {% endif %}
+  </div>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- Name Input (will only show user name) -->
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" class="form-control" value="{% if employee %}{{ employee.name }}{% else %}{{ user.name }}{% endif %}">
+    </div>
+
+    <!-- Email Input -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" class="form-control" value="{% if employee %}{{ employee.email }}{% else %}{{ user.email }}{% endif %}">
+    </div>
+
+    <!-- Phone Input for Employee -->
+    {% if employee %}
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" name="phone" class="form-control" value="{{ employee.phone_number }}">
+      </div>
+      
+      <!-- Address Input for Employee -->
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" class="form-control" value="{{ employee.address }}">
+      </div>
+      
+      <!-- Profile Picture Input for Employee -->
+      <div class="form-group">
+        <label for="profile_picture">Profile Picture</label>
+        <input type="file" id="profile_picture" name="image" class="form-control">
+      </div>
+    {% endif %}
+
+    <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+  </form>
+</div>
+{% endblock page_content %}

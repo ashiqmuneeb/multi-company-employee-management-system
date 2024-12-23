@@ -1,0 +1,45 @@
+<!-- Sidebar for Manager -->
+<li class="menu-header">Manager Dashboard</li>
+<li>
+    <a href="{% url 'manager_dashboard' company_id=company.id %}" class="nav-link">
+        <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
+    </a>
+</li>
+
+<li>
+    <a href="{% url 'manage_attendance' company_id=company.id %}" class="nav-link">
+        <i class="fas fa-calendar-check"></i><span>Attendance</span>
+    </a>
+</li>
+
+<li>
+    <a href="{% url 'manage_leave_requests' company_id=company.id %}" class="nav-link">
+        <i class="fas fa-plane-departure"></i><span>Leave Management</span>
+    </a>
+</li>
+
+<li>
+    <a href="{% url 'view_department_employees' company_id=company.id %}" class="nav-link">
+        <i class="fas fa-user"></i><span>View Employee Profile</span>
+    </a>
+</li>
+
+<li>
+    <a href="{% url 'manage_tasks' company_id=company.id %}" class="nav-link">
+        <i class="fas fa-envelope"></i><span>Tasks</span>
+    </a>
+</li>
+
+<!-- Announcement Management -->
+<li>
+    <a href="{% url 'list_announcements' company_id=company.id %}" class="nav-link">
+        <i class="fas fa-bullhorn"></i><span>Announcements</span>
+    </a>
+</li>
+
+<div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+    <a href="{% url 'user_logout' %}" class="btn btn-primary btn-lg btn-block btn-icon-split">
+        <i class="fas fa-sign-out-alt"></i>
+        <span class="ml-2">Logout</span>
+    </a>
+</div>

@@ -1,0 +1,33 @@
+{% extends "users/base.html" %}
+
+{% block title%}
+Leave Policies
+{% endblock title%}
+{% block page_title %}
+{% include "users/employee/_page_title.html" %}
+{% endblock page_title %}
+
+{% block page_content %}
+<h2 style="text-align: center; margin-bottom: 20px; color: #4CAF50;">Leave Policies for {{ company.name }}</h2>
+
+<table style="width: 80%; margin: 0 auto; border-collapse: collapse; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+    <thead>
+        <tr style="background-color: #4CAF50; color: white;">
+            <th style="padding: 12px; border: 1px solid #ddd;">Leave Type</th>
+            <th style="padding: 12px; border: 1px solid #ddd;">Max Days Per Year</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for policy in leave_policies %}
+        <tr style="background-color: {% cycle '#f9f9f9' '#fff' %}; text-align: center;">
+            <td style="padding: 12px; border: 1px solid #ddd;">{{ policy.leave_type }}</td>
+            <td style="padding: 12px; border: 1px solid #ddd;">{{ policy.max_days_per_year }}</td>
+        </tr>
+        {% empty %}
+        <tr style="background-color: #f9f9f9; text-align: center;">
+            <td colspan="2" style="padding: 12px; border: 1px solid #ddd; font-style: italic;">No leave policies defined for this company.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock page_content %}

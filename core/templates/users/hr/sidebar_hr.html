@@ -1,0 +1,72 @@
+<!-- Sidebar for HR -->
+<li class="menu-header">HR Dashboard</li>
+<li>
+    <a href="{% url 'company_dashboard' company_id=company.id %}" class="nav-link">
+        <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
+    </a>
+</li>
+
+<li>
+    <a href="{% url 'department_management' company.id %}" class="nav-link">
+    <i class="fas fa-sitemap"></i><span>Department Management</span>
+    </a>
+</li>
+
+
+<li>
+    <a href="{% url 'role_management' company.id %}" class="nav-link">
+        <i class="fas fa-user-tag"></i><span>Role Management</span>
+    </a>
+</li>
+
+
+<li>
+    <a href="{% url 'view_staff_per_company' company_id=company.id %}" class="nav-link">
+        <i class="fas fa-users"></i><span>Staff Management</span>
+    </a>
+</li>
+
+<!-- Attendance -->
+<li>
+    <a href="{% url 'manage_attendance_hr' company_id=company.id %}" class="nav-link">
+        <i class="fas fa-calendar-check"></i><span>Attendance</span>
+    </a>
+</li>
+
+
+
+     <li>
+        <a href="{% url 'leave_management' company_id=company.id %}" class="nav-link">
+            <i class="fas fa-plane-departure"></i><span>Leave Management</span>
+        </a>
+    </li>
+ <li>
+        <a href="{% url 'list_announcements' company_id=company.id %}" class="nav-link">
+            <i class="fas fa-bullhorn"></i><span>Announcements</span>
+        </a>
+    </li>
+
+    <li>
+        <a href="{% url 'list_leave_policies' company_id=company.id %}" class="nav-link">
+            <i class="fas fa-file-alt"></i><span>Leave Policies</span>
+        </a>
+    </li>
+
+    <li>
+        <a href="{% url 'manage_tasks' company_id=company.id %}" class="nav-link">
+            <i class="fas fa-envelope"></i><span>Tasks</span>
+        </a>
+    </li>
+    
+    <!-- Announcement Management -->
+    <li>
+        <a href="{% url 'list_announcements' company_id=company.id %}" class="nav-link">
+            <i class="fas fa-bullhorn"></i><span>Announcements</span>
+        </a>
+    </li>
+
+<div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+    <a href="{% url 'user_logout' %}" class="btn btn-primary btn-lg btn-block btn-icon-split">
+        <i class="fas fa-sign-out-alt"></i>
+        <span class="ml-2">Logout</span>
+    </a>

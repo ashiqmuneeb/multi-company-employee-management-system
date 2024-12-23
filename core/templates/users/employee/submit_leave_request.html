@@ -1,0 +1,94 @@
+{% extends "users/base.html" %}
+
+{% block title %}
+Submit Leave Request
+{% endblock title %}
+
+{% block custom_css %}
+<style>
+    
+    /* Container styling */
+    .leave-request-container {
+        max-width: 500px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: #fdfdfd;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    .leave-request-container h1 {
+        text-align: center;
+        font-size: 26px;
+        margin-bottom: 25px;
+        color: #333;
+    }
+
+    /* Form styling */
+    .leave-request-container form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .leave-request-container form label {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #555;
+    }
+
+    .leave-request-container form input,
+    .leave-request-container form select,
+    .leave-request-container form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+        background-color: #fff;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .leave-request-container form input:focus,
+    .leave-request-container form select:focus,
+    .leave-request-container form textarea:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        outline: none;
+    }
+
+    /* Button styling */
+    .leave-request-container form button {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .leave-request-container form button:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock custom_css %}
+
+{% block page_title %}
+{% include "users/employee/_page_title.html" %}
+{% endblock page_title %}
+
+{% block page_content %}
+<div class="leave-request-container">
+    <h1>Submit Leave Request</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock page_content %}

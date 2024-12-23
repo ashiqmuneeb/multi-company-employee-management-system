@@ -1,0 +1,90 @@
+{% extends "company/base.html" %}
+{% load static %}
+
+{% block title %}Delete Staff{% endblock title %}
+
+{% block page_title %}Delete Staff{% endblock page_title %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Delete Staff</h4>
+            </div>
+            <div class="card-body">
+                <!-- Company Selection Filter -->
+                <form method="get" class="mb-3">
+                    <div class="form-group">
+                        <label for="company">Select Company</label>
+                        <select name="company" id="company" class="form-control" onchange="this.form.submit()">
+                            <option value="">Select Company</option>
+                            {% for company in companies %}
+                                <option value="{{ company.id }}" {% if company.id|stringformat:"s" == selected_company %}selected{% endif %}>
+                                    {{ company.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </form>
+
+                <!-- Employees Table -->
+                {% if employees %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for employee in employees %}
+                        <tr>
+                            <td>{{ employee.employee_id }}</td>
+                            <td>{{ employee.name }}</td>
+                            <td>
+                                {% if employee.image %}
+                                    <img src="{{ employee.image.url }}" width="50" height="50" alt="Image">
+                                {% else %}
+                                    <img src="{% static 'assets/img/default-avatar.png' %}" width="50" height="50" alt="Default Image">
+                                {% endif %}
+                            </td>
+                            <td>{{ employee.role }}</td>
+                            <td>{{ employee.department }}</td>
+                            <td>
+                                <a href="{% url 'delete_staff_confirmation' employee.id %}" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if employees.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ employees.previous_page_number }}">previous</a>
+                        {% endif %}
+                        <span class="current">
+                            Page {{ employees.number }} of {{ employees.paginator.num_pages }}.
+                        </span>
+                        {% if employees.has_next %}
+                            <a href="?page={{ employees.next_page_number }}">next</a>
+                            <a href="?page={{ employees.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+
+                {% else %}
+                    <p>No staff members found for the selected company.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

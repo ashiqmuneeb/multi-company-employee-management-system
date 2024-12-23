@@ -1,0 +1,60 @@
+{% extends "company/base.html" %}
+
+{% block title %}Role List{% endblock title %}
+
+{% block page_title %}Role List{% endblock page_title %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-12">
+       
+        <div class="card">
+            <div class="card-header">
+                <h4>Roles</h4>
+            </div>
+            <div class="card-body">
+                <!-- Filter Dropdown for Companies -->
+                <form method="get" class="form-inline mb-3">
+                    <label for="companyFilter" class="mr-2">Filter by Company:</label>
+                    <select name="company" id="companyFilter" class="form-control mr-2">
+                        <option value="">All Companies</option>
+                        {% for company in companies %}
+                            <option value="{{ company.id }}" {% if company.id|stringformat:"s" == selected_company_id|stringformat:"s" %}selected{% endif %}>
+                                {{ company.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </form>
+
+                <!-- Department List Table -->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Role Name</th>
+                            <th>Company</th>
+                            <th>Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for role in roles %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ role.name }}</td>
+                                <td>{{ role.company.name }}</td>
+
+                                <td>{{ role.created_at }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">No Roles Found</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock page_content %}

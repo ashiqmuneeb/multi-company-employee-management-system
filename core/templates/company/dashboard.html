@@ -1,0 +1,158 @@
+{% extends 'company/base.html' %}
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+{% block custom_css %}
+<!-- You can add custom CSS here if needed -->
+{% endblock custom_css %}
+
+{% block page_title %}
+Dashboard
+{% endblock page_title %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+        <div class="card card-statistic-1">
+            <div class="card-icon bg-primary">
+                <i class="far fa-user"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Total Companies</h4>
+                </div>
+                <div class="card-body">
+                    {{ total_companies }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+        <div class="card card-statistic-1">
+            <div class="card-icon bg-danger">
+                <i class="far fa-newspaper"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Total Staff</h4>
+                </div>
+                <div class="card-body">
+                    {{ total_staff }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Attendance Summary -->
+<div class="row">
+  <div class="col-12">
+      <h3>Attendance Summary</h3>
+      <canvas id="attendanceChart" height="475" width="785" style="display: block; height: 380px; width: 628px;"></canvas>
+  </div>
+</div>
+
+<!-- Leave Requests Summary -->
+<div class="row">
+    <div class="col-12">
+        <h3>Leave Requests Summary</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Pending</th>
+                    <th>Approved</th>
+                    <th>Rejected</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stat in leave_stats %}
+                <tr>
+                    <td>{{ stat.company.name }}</td>
+                    <td>{{ stat.pending_count }}</td>
+                    <td>{{ stat.approved_count }}</td>
+                    <td>{{ stat.rejected_count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Company Details Section -->
+<div class="row">
+    <div class="col-12">
+        <h3>Company Details</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Contact Info</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for company in all_companies %}
+                <tr>
+                    <td>{{ company.name }}</td>
+                    <td>{{ company.address }}</td>
+                    <td>{{ company.email }}</td>
+                    <td>{{ company.contact_info }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock page_content %}
+
+{% block custom_js %}
+<script>
+  // Prepare the data for the chart
+  var attendanceData = {
+      labels: [{% for stat in attendance_stats %}"{{ stat.company.name }}"{% if not forloop.last %}, {% endif %}{% endfor %}],
+      datasets: [{
+          label: 'Present',
+          data: [{% for stat in attendance_stats %}{{ stat.present_count }}{% if not forloop.last %}, {% endif %}{% endfor %}],
+          backgroundColor: 'rgba(0, 123, 255, 0.5)',
+          borderColor: 'rgba(0, 123, 255, 1)',
+          borderWidth: 1
+      }, {
+          label: 'Absent',
+          data: [{% for stat in attendance_stats %}{{ stat.absent_count }}{% if not forloop.last %}, {% endif %}{% endfor %}],
+          backgroundColor: 'rgba(220, 53, 69, 0.5)',
+          borderColor: 'rgba(220, 53, 69, 1)',
+          borderWidth: 1
+      }, {
+          label: 'Late',
+          data: [{% for stat in attendance_stats %}{{ stat.late_count }}{% if not forloop.last %}, {% endif %}{% endfor %}],
+          backgroundColor: 'rgba(255, 193, 7, 0.5)',
+          borderColor: 'rgba(255, 193, 7, 1)',
+          borderWidth: 1
+      }]
+  };
+
+  // Set up the chart options
+  var chartOptions = {
+      responsive: true,
+      scales: {
+          y: {
+              beginAtZero: true
+          }
+      }
+  };
+
+  // Create the chart
+  var ctx = document.getElementById('attendanceChart').getContext('2d');
+  var attendanceChart = new Chart(ctx, {
+      type: 'bar',  // Bar chart
+      data: attendanceData,
+      options: chartOptions
+  });
+</script>
+{% endblock custom_js %}

@@ -1,0 +1,18 @@
+{% extends "users/base.html" %}
+
+{% block title %}
+Delete Policies
+{% endblock title %}
+
+
+{% block page_content %}
+<div class="container">
+    <h2>Delete Leave Policy</h2>
+    <p>Are you sure you want to delete the leave policy for {{ policy.leave_type }}?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'list_leave_policies' company_id=policy.company.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

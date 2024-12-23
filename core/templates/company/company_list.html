@@ -1,0 +1,69 @@
+{% extends "company/base.html" %}
+{% load static %}
+
+{% block title %}
+Company List
+{% endblock title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block page_title %} 
+Company List
+{% endblock page_title %}
+
+{% block page_content %}
+<div class="row">
+    {% for company in list_company %}
+    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+        <article class="article article-style-b">
+            <div class="article-header">
+                {% if company.logo %}
+                    <div class="article-image" style="background-image: url('{{ company.logo.url }}');"></div>
+                {% else %}
+                    <div class="article-image" style="background-image: url('{% static "assets/img/default-logo.png" %}');"></div>
+                {% endif %}
+                <div class="article-badge">
+                    <div class="article-badge-item bg-primary">{{ company.name }}</div>
+                </div>
+            </div>
+            <div class="article-details">
+                <p>Address: {{ company.address }}</p>
+                <p>Contact: {{ company.contact_info }}</p>
+                <p>Email:{{ company.email}}</p>
+                <p>Code: {{ company.company_code_for_employee_id }}</p>
+
+               
+
+                <div class="article-cta">
+                    <a href="{% url 'company_detail' company.id %}" class="btn btn-warning">View <i class="fas fa-chevron-right"></i></a>                </div>
+            </div>
+        </article>
+    </div>
+    {% endfor %}
+</div>
+
+{% if is_paginated %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endif %}
+
+{% endblock page_content %}
+
+{% block custom_js %}
+{% endblock custom_js %}

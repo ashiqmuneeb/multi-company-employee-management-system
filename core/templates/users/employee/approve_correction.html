@@ -1,0 +1,15 @@
+{% extends 'users/base.html' %}
+
+{% block page_content %}
+    <h1>Approve Attendance Correction</h1>
+    <p>Employee: {{ attendance.employee.username }}</p>
+    <p>Date: {{ attendance.date }}</p>
+    <p>Clock In: {{ attendance.clock_in }}</p>
+    <p>Clock Out: {{ attendance.clock_out }}</p>
+    <p>Status: {{ attendance.status }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Approve Correction</button>
+    </form>
+{% endblock page_content%}

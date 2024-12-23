@@ -1,0 +1,74 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg main-navbar custom-navbar">
+    <form class="form-inline mr-auto">
+        <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+        </ul>
+    </form>
+    <ul class="navbar-nav navbar-right">
+        <li class="dropdown dropdown-list-toggle">
+            
+ <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                <div class="dropdown-header">Messages
+                    <div class="float-right">
+                        
+                    </div>
+                </div>
+                <div class="dropdown-list-content dropdown-list-message">
+                    <a href="#" class="dropdown-item dropdown-item-unread"></a>
+                </div>
+            </div>
+        </li>
+        <a href="{% url 'user_profile' %}" class="nav-link nav-link-lg nav-link-user">
+            <img alt="image" src="{% static '/img/avatar-1.png' %}" class="rounded-circle mr-1">
+            <div class="text-black">{{ request.user.first_name }}</div>
+        </a>
+        
+                       
+                </div>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<style>
+    .custom-navbar {
+        background-color:#0000ff; 
+        color: #ffffff;
+    }
+
+    .custom-navbar .nav-link,
+    .custom-navbar .dropdown-toggle {
+        color: #ffffff !important;
+    }
+
+    .custom-navbar .dropdown-menu {
+        background-color: #343a40; /* Matches navbar */
+        color: #ffffff;
+    }
+
+    .custom-navbar .dropdown-item:hover {
+        background-color: #495057; /* Slightly lighter grey */
+        color: #ffffff;
+    }
+
+    /* Blue Theme (Alternative) */
+    /* Uncomment to use blue instead of dark grey */
+    /*
+    .custom-navbar {
+        background-color: #007bff; 
+        color: #ffffff;
+    }
+
+    .custom-navbar .dropdown-menu {
+        background-color: #007bff;
+        color: #ffffff;
+    }
+
+    .custom-navbar .dropdown-item:hover {
+        background-color: #0056b3; 
+        color: #ffffff;
+    }
+    */
+</style>

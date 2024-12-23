@@ -1,0 +1,6 @@
+<form method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete the role "{{ role.name }}"?</p>
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'role_management' company.id %}">Cancel</a>
+</form>
